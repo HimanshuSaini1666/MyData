@@ -11,6 +11,7 @@ STR4="<servlet-mapping><servlet-name>groups<\/servlet-name><url-pattern>\/groups
 if [ -f web.xml ]; then
   echo "add data in xml file"
   sudo sed -i "/<\/display-name>/a $STR1 $STR2 $STR3 $STR4" web.xml
+  #sudo sed -i "/<\/display-name>/i $STR1 $STR2 $STR3 $STR4" web.xml  use if need to append data before </display-name>
 else
   echo "web.xml file does not exists"
 fi
