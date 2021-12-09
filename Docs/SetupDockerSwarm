@@ -1,0 +1,31 @@
+sudo apt update
+sudo apt install apt-transport-https ca-certificates curl software-properties-common
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+
+sudo apt-get update
+
+Ensure that you are going to install from the official Docker repo instead of default Ubuntu repo.
+apt-cache policy docker-ce
+
+sudo apt install docker-ce
+
+systemctl status docker
+
+Add your user to Docker group to avoid typing sudo everytime you run docker commands.
+
+sudo usermod -aG docker ubuntu
+
+Required Ports
+TCP port 2376 for secure Docker client communication. This port is required for Docker Machine to work. Docker Machine is used to orchestrate Docker hosts.
+TCP port 2377. This port is used for communication between the nodes of a Docker Swarm or cluster. It only needs to be opened on manager nodes.
+TCP and UDP port 7946 for communication among nodes (container network discovery).
+UDP port 4789 for overlay network traffic (container ingress networking).
+
+sudo docker swarm init --advertise-addr $HOST_IP
+
+docker service create
+
+compose 
+ sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
