@@ -1,0 +1,43 @@
+https://computingforgeeks.com/deploy-kubernetes-cluster-on-ubuntu-with-kubeadm/
+
+sudo apt update
+sudo apt -y upgrade && sudo systemctl reboot
+
+sudo apt update
+sudo apt -y install curl apt-transport-https
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+sudo apt update
+sudo apt -y install vim git curl wget kubelet kubeadm kubectl
+sudo apt-mark hold kubelet kubeadm kubectl
+
+check
+kubectl version --client && kubeadm version
+
+Turn off swap.
+
+sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
+sudo swapoff -a
+
+sudo apt update
+sudo apt install -y curl gnupg2 software-properties-common apt-transport-https ca-certificates
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+sudo apt update
+sudo apt install -y containerd.io docker-ce docker-ce-cli
+
+
+Initialize master node - Login to the server to be used as master and make sure that the br_netfilter module is loaded:
+
+$ lsmod | grep br_netfilter
+br_netfilter           22256  0 
+bridge                151336  2 br_netfilter,ebtable_broute
+
+Enable kubelet service.
+
+sudo systemctl enable kubelet
+Pull container images:
+sudo kubeadm config images pull
+
+sudo kubeadm config images pull --cri-socket /var/run/docker.sock
