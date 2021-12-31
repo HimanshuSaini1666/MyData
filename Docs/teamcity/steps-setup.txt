@@ -1,0 +1,23 @@
+Install Java
+Install default Java JDK
+sudo apt-get install default-jdk -y
+set JAVA_HOME=
+Download & Install Team city
+wget https://download.jetbrains.com/teamcity/TeamCity-2020.1.tar.gz
+tar -xzf TeamCity-2020.1.tar.gz 
+Start Team City Service for evaluation purposes
+If you want to simply start Team City for evaluation purposes then are now ready to start TeamCity and now all we have to do is.
+
+SHELL
+./TeamCity/bin/runAll.sh start
+You should now be able to browse to your server location .ie http://192.168.1.9:8111/ and continue to configure and Install TeamCity using the Web Application front end.
+
+
+
+TeamCity is a CI/CD(Continuous Integration and Continuous delivery) tool that work as a web server for managing automated pipelines. It allows developers and engineers to integrate, code, build, test the applications. It is easier to configure with simple steps. On TeamCity parallel builds run simultaneously on different platforms and environments. TeamCity is a build management and continuous integration server from JetBrains.
+
+Provide the http URL of the GitHub repository to "Repository URL"
+Provide Username that have access to the GitHub repository
+Provide Password or access token of the user
+
+Firstly you have to install and enable Plugin(GitHub Commit Hooks) in Administartion section
